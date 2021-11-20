@@ -1,6 +1,6 @@
 const express = require('express');
 const UsuarioModel = require('../models/Usuario.models');
-const {crearUsuario,listarUsuario,actualizarUsuario}= require('../controllers/usuario.controllers')
+const {crearUsuario,listarUsuario,actualizarUsuario,eliminarUsuario}= require('../controllers/usuario.controllers')
 
 
 let api=express.Router();
@@ -12,6 +12,6 @@ api.get('/api/usuario',listarUsuario)
 //Actualizar usuarios
 api.put('/api/usuario/:id',actualizarUsuario)
 //Eliminar Usuario
-api.delete('/api/usuario/:id')
+api.delete('/api/usuario/:id',eliminarUsuario)
 
 module.exports=api;

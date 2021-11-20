@@ -43,8 +43,25 @@ const actualizarUsuario = async(req,res)=>{
         
     }
 }
+
+const eliminarUsuario = async(req,res)=>{
+    try {
+        
+        let clienteId=req.params.id;
+       
+        let usuarioEliminado= await UsuarioModel.findByIdAndDelete(clienteId,{new:true});
+    
+        res.status(200).send({
+            usuarioEliminado
+        })  
+        
+    } catch (error) {
+        
+    }
+}
 module.exports={
     crearUsuario,
     listarUsuario,
-    actualizarUsuario
+    actualizarUsuario,
+    eliminarUsuario
 }
