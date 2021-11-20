@@ -16,6 +16,7 @@ app.use(express.json());
 
 //Rutas
 app.use(require('./routes/usuario.route'))
+app.use(require('./routes/proyecto.route'))
 
 const main=async ()=>{
     await connectDB();

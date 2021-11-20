@@ -37,7 +37,7 @@ const proyectoSchema = new Schema({
     },
     lider:{
         type: Schema.Types.ObjectId,
-        ref:UserModel,
+        ref: 'Usuario',
         required:true
     }
 });
