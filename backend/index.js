@@ -1,17 +1,21 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const connectDB = require('./db/db');
-let bodyParser = require('body-parser');
-var cors = require('cors');
+const cors = require('cors');
 
-let app = express();
+dotenv.config();
+
+const app = express();
 
 //Rutas
 const usuarioRuta=require('./routes/usuario.route');
 
 
+app.set('port', process.env.PORT || 5000);
+
 app.use(cors())
-app.use(bodyParser.urlencoded({extended:false}));
-app.use (bodyParser.json());
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
 
 //Usuario
 app.use('/api/v1/usuario',usuarioRuta)
@@ -19,7 +23,7 @@ app.use('/api/v1/usuario',usuarioRuta)
 const main=async ()=>{
     await connectDB();
 
-    app.listen(5000,()=>{
+    app.listen(app.get('port'),()=>{
         console.log(`Servidor corriendo`);
     })
     
