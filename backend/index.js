@@ -7,9 +7,6 @@ dotenv.config();
 
 const app = express();
 
-//Rutas
-const usuarioRuta=require('./routes/usuario.route');
-
 
 app.set('port', process.env.PORT || 5000);
 
@@ -17,8 +14,8 @@ app.use(cors())
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
-//Usuario
-app.use('/api/v1/usuario',usuarioRuta)
+//Rutas
+app.use(require('./routes/usuario.route'))
 
 const main=async ()=>{
     await connectDB();

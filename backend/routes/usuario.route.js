@@ -6,9 +6,9 @@ const {crearUsuario}= require('../controllers/usuario.controllers')
 let api=express.Router();
 
 //Crear usuarios
-api.post('/',crearUsuario)
+api.post('/api/usuarios/',crearUsuario)
 //Consultar todos los usuarios
-api.get('/',async(req,res)=>{
+api.get('/api/usuarios/',async(req,res)=>{
     try {
         let usuarios = await  UsuarioModel.find();
         res.status(200).send({
@@ -20,7 +20,7 @@ api.get('/',async(req,res)=>{
    
 })
 //Actualizar usuarios
-api.put('/:id',async(req,res)=>{
+api.put('/api/usuarios/:id',async(req,res)=>{
     let clienteId=req.params.id;
     let datosNuevos=req.body
     let usuarioActualizado= await UsuarioModel.findByIdAndUpdate(clienteId,datosNuevos,{new:true});
