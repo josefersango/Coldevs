@@ -1,5 +1,6 @@
 const {Schema,model}= require('mongoose');
 
+
 const inscripcionSchema = new Schema({
     estado:{
         type:String,
@@ -16,17 +17,17 @@ const inscripcionSchema = new Schema({
     },
     proyecto:{
         type:Schema.Types.ObjectId,
-        ref:ProjectModel,
+        ref:'Proyecto',
         required:true
     },
     estudiante:{
         type:Schema.Types.ObjectId,
-        ref:UsuarioModel,
+        ref:'Usuario',
         required:true
     }
     
 });
 
-const ProyectoModel = model('Inscripcion',inscripcionSchema);
+const InscripcionModel = model('Inscripcion',inscripcionSchema);
 
-module.exports=ProyectoModel;
+module.exports=InscripcionModel;
