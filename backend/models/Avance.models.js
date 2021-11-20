@@ -14,17 +14,17 @@ const avanceSchema = new Schema({
     },
     proyecto:{
         type:Schema.Types.ObjectId,
-        ref:ProjectModel,
+        ref:'Proyecto',
         required:true
     },
     usuarioCreador:{
         type:Schema.Types.ObjectId,
-        ref:UsuarioModel
+        ref:'Usuario'
     }
     
     
 });
 
-const ProjectModel = model('Avance',projectSchema);
+const AvanceModel = model('Avance',avanceSchema);
 
-module.exports=ProjectModel;
+module.exports=AvanceModel;
