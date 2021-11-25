@@ -4,7 +4,7 @@ const {Schema,model}= require('mongoose');
 const inscripcionSchema = new Schema({
     estado:{
         type:String,
-        enum:['Aceptada','Rechazada'],
+        enum: ["ACEPTADA","RECHAZADA"],
         required:true
     },
     fechaIngreso:{
