@@ -16,6 +16,52 @@ const crearUsuario=async (req,res)=>{
         
     
 }
+const listarUsuario = async(req,res)=>{
+    
+    try {
+        let usuariosEncontrados = await UsuarioModel.find();
+        res.status(200).send({
+            usuariosEncontrados
+        })
+    } catch (error) {
+        console.log(`Error al listar los usuarios ${error}`)
+    }
+}
+
+const actualizarUsuario = async(req,res)=>{
+    try {
+        
+        let clienteId=req.params.id;
+        let datosNuevos=req.body
+        let usuarioActualizado= await UsuarioModel.findByIdAndUpdate(clienteId,datosNuevos,{new:true});
+    
+        res.status(200).send({
+            usuarioActualizado
+        })  
+        
+    } catch (error) {
+        
+    }
+}
+
+const eliminarUsuario = async(req,res)=>{
+    try {
+        
+        let clienteId=req.params.id;
+       
+        let usuarioEliminado= await UsuarioModel.findByIdAndDelete(clienteId,{new:true});
+    
+        res.status(200).send({
+            usuarioEliminado
+        })  
+        
+    } catch (error) {
+        
+    }
+}
 module.exports={
-    crearUsuario
+    crearUsuario,
+    listarUsuario,
+    actualizarUsuario,
+    eliminarUsuario
 }
