@@ -1,4 +1,4 @@
-const InscripcionModel = require('../models/Inscripcion.models');
+const InscripcionModel = require('../models/inscripcion/Inscripcion.models');
 
 const crearInscripcion = async (req,res) => {
    
