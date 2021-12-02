@@ -1,5 +1,5 @@
-const {Schema,model}= require('mongoose');
-
+import  mongoose from 'mongoose'
+const {Schema,model} = mongoose;
 
 const inscripcionSchema = new Schema({
     estado:{
@@ -30,4 +30,4 @@ const inscripcionSchema = new Schema({
 
 const InscripcionModel = model('Inscripcion',inscripcionSchema);
 
-module.exports=InscripcionModel;
+export default InscripcionModel;
