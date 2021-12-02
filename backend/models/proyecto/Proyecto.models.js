@@ -1,4 +1,5 @@
-const {Schema,model}= require('mongoose');
+import  mongoose from 'mongoose'
+const {Schema,model} = mongoose;
 
 const proyectoSchema = new Schema({
     nombre:{
@@ -27,13 +28,13 @@ const proyectoSchema = new Schema({
     },
     estado:{
         type:String,
-        enum:['','Activo','Inactivo'],
-        default:''
+        enum: ["ACTIVO", "INACTIVO"],
+        default: "INACTIVO",
     },
     fase:{
         type:String,
-        enum:['Inicio','Desarrollo','Terminado'],
-        default:''
+        enum: ["INICIADO", "DESARROLLO", "TERMINADO", "NULO"],
+        default: "NULO",
     },
     lider:{
         type: Schema.Types.ObjectId,
@@ -44,4 +45,4 @@ const proyectoSchema = new Schema({
 
 const ProyectoModel = model('Proyecto',proyectoSchema);
 
-module.exports=ProyectoModel;
+export default ProyectoModel;

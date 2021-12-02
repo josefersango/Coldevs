@@ -1,5 +1,6 @@
-const {Schema,model}= require('mongoose');
+import mongoose from 'mongoose';
 
+const { Schema, model } = mongoose;
 const validacionEmail=function(correoElectronico){
     const exp=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return exp.test(correoElectronico);
@@ -28,15 +29,15 @@ const userSchema= new Schema({
     rol:{
         type:String,
         required:true,
-        enum:['Estudiante','Rol','Administrador']
+        enum: ["ESTUDIANTE", "LIDER", "ADMINISTRADOR"],
     },
     estado:{
         type:String,
-        enum:['Pendiente','Autorizado','No Autorizado'],
-        default:'Pendiente'
+        enum: ["PENDIENTE", "AUTORIZADO", "NO_AUTORIZADO"],
+        default: "PENDIENTE"
     }
 });
 
 const UsuarioModel=model('Usuario',userSchema);
 
-module.exports=UsuarioModel;
+export default UsuarioModel;

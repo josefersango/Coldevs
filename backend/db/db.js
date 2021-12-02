@@ -1,8 +1,7 @@
-require('dotenv').config();
-const {connect} = require('mongoose');
+import mongoose from 'mongoose';
 
 const connectDB=async()=>{
-   return  await connect(process.env.DB_URI)
+   return  await mongoose.connect(process.env.DB_URI)
    .then(()=>{
        console.log("Conexión exitosa");
    })
@@ -10,4 +9,4 @@ const connectDB=async()=>{
        console.log(`Error conectando a la Base de Datos ${err}`)
    })
 }
-module.exports=connectDB;
+export default connectDB
