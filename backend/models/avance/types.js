@@ -3,6 +3,7 @@ import { gql } from "apollo-server-core";
 const typeAvance = gql `
 
 type Avance{
+    _id: ID!
     fecha: Date!
     descripciones: String!
     observaciones: [String]
