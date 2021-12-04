@@ -1,4 +1,7 @@
-const {Schema,model}= require('mongoose');
+import  mongoose from 'mongoose'
+const {Schema,model} = mongoose;
+
+//const {Schema,model}= require('mongoose');
 
 const avanceSchema = new Schema({
     fecha:{
@@ -19,7 +22,8 @@ const avanceSchema = new Schema({
     },
     usuarioCreador:{
         type:Schema.Types.ObjectId,
-        ref:'Usuario'
+        ref:'Usuario',
+        required:true
     }
     
     
@@ -27,4 +31,4 @@ const avanceSchema = new Schema({
 
 const AvanceModel = model('Avance',avanceSchema);
 
-module.exports=AvanceModel;
+export default AvanceModel;
