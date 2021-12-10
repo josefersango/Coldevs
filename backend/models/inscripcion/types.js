@@ -40,6 +40,8 @@ const typeInscripcion = gql`
     ): Inscripcion
 
     eliminarInscripcion(_id: String!): Inscripcion
+    
+    aceptarInscripcion(_id:String):Inscripcion
   }
 `;
 

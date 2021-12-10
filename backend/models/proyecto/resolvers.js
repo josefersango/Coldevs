@@ -4,7 +4,10 @@ import  ProyectoModel  from "../proyecto/Proyecto.models.js";
 const resolversProyecto = {
   Query: {
     Proyectos: async (parent,args)=>{
-      const proyectos = await ProyectoModel.find().populate('lider');
+      const proyectos = await ProyectoModel.find()
+      .populate('lider')
+      .populate('avances')
+      .populate('inscripciones');
       return proyectos;
     }
   },

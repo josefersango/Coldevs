@@ -32,6 +32,13 @@ const resolversInscripcion = {
       const inscripcion = await InscripcionModel.findByIdAndDelete(args._id);
       return inscripcion;
     },
+    aceptarInscripcion:async (parent,args)=>{
+      const inscripcionAceptada= await InscripcionModel.findByIdAndUpdate(args._id,{
+        estado:'ACEPTADA',
+        fechaIngreso:Date.now()
+      },{new:true});
+      return inscripcionAceptada;
+    }
   },
 };
 
