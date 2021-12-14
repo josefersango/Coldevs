@@ -9,8 +9,11 @@ const resolversUsuario = {
     },
     Usuario:async (parent,args)=>{
       const usuario= await UsuarioModel.findOne({_id:args._id})
-      console.log(usuario)
       return usuario;
+    },
+    UsuariosPendientes: async(parent,args)=>{
+      const usuarios=await UsuarioModel.find({estado:'PENDIENTE'});
+      return usuarios;
     },
     Proyectos: async (parent,args)=>{
       const proyectos = await ProyectoModel.find().populate('lider');
@@ -45,7 +48,6 @@ const resolversUsuario = {
           identificacion:args.identificacion,
           correo:args.correo,
           estado:args.estado,
-          rol:args.rol
         },
         {new:true});
         

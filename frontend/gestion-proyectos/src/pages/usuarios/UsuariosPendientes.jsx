@@ -1,11 +1,11 @@
 import {React,useEffect} from 'react';
 import {useQuery} from '@apollo/client'
 import { toast } from 'react-toastify';
-import { GET_USUARIOS } from '../../graphql/usuarios/queries';
+import { GET_USUARIOS_PENDIENTES } from '../../graphql/usuarios/queries';
 import { Link } from 'react-router-dom';
 
-const IndexUsuario= ()=>{
-    const {data,error,loading} = useQuery(GET_USUARIOS);
+const UsuariosPendientes= ()=>{
+    const {data,error,loading} = useQuery(GET_USUARIOS_PENDIENTES);
     useEffect(() => {
         console.log("datos servidor ",data);
     }, [data]);
@@ -31,7 +31,7 @@ const IndexUsuario= ()=>{
                 </tr>
             </thead>
             <tbody>
-                {data && data.Usuarios.map((usuario)=>{
+                {data && data.UsuariosPendientes.map((usuario)=>{
                     return(
                         <tr key={usuario._id}>
                             <td>{usuario.nombre} {usuario.apellidos}</td>
@@ -40,9 +40,7 @@ const IndexUsuario= ()=>{
                             <td>{usuario.rol}</td>
                             <td>{usuario.estado}</td>
                             <td>
-                                <Link to={`/usuarios/editar/${usuario._id}`}>
-                                    Editar
-                                </Link>
+                                
                             </td>
 
                         </tr>
@@ -55,4 +53,4 @@ const IndexUsuario= ()=>{
     );
 };
 
-export default IndexUsuario;
+export default UsuariosPendientes;
