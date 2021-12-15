@@ -16,7 +16,7 @@ const Navbar =()=>{
                         <NavLink className="nav-link "  to="/">Inicio</NavLink>
                     </li>
                     <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" >Usuarios</a>
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><NavLink  exact to="/usuarios" className="dropdown-item"  >Listar</NavLink></li>
                             <li><NavLink  exact to="/usuarios/pendientes" className="dropdown-item"  >Pendientes</NavLink></li>
