@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Navbar';
 
-const Layout = ({children}) => {
+const PrivateLayout = ({children}) => {
     return (
         <div>
             <Navbar/>
@@ -25,4 +25,4 @@ const Layout = ({children}) => {
     )
 }
 
-export default Layout
+export default PrivateLayout

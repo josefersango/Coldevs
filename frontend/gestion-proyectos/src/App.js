@@ -4,9 +4,11 @@ import {
   import {ApolloProvider,ApolloClient,InMemoryCache,createHttpLink,} from '@apollo/client'
 import Index from './pages'
 import IndexUsuario from './pages/usuarios/usuarios'
-import Layout from './components/Layout'
+import PrivateLayout from './components/PrivateLayout'
 import EditarUsuario from './pages/usuarios/EditarUsuario'
 import UsuariosPendientes from './pages/usuarios/UsuariosPendientes'
+import { Registro } from './pages/auth/Registro'
+import AuthLayout from './components/AuthLayout'
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:5000/graphql',
@@ -20,14 +22,21 @@ function App() {
   return (
     <ApolloProvider client={cliente}>
       <BrowserRouter>
-      <Layout>
+      
         <Routes>
-          <Route exact path="/" element={<Index />}></Route>
-          <Route exact path="/usuarios" element={<IndexUsuario/>}></Route>
-          <Route exact path="/usuarios/pendientes" element={<UsuariosPendientes/>}></Route>
-          <Route exact path="/usuarios/editar/:_id" element={<EditarUsuario/>}></Route>
+            <Route path="/" element={<PrivateLayout/>}>
+              <Route exact path="/" element={<Index />}/>
+              <Route exact path="/usuarios" element={<IndexUsuario/>}/>
+              <Route exact path="/usuarios/pendientes" element={<UsuariosPendientes/>}/>
+              <Route exact path="/usuarios/editar/:_id" element={<EditarUsuario/>}/>
+            </Route>
+          
+          <Route path='/auth' element={<AuthLayout/>}>
+              <Route exact path="/auth/registro" element={<Registro/>}/>
+          </Route>
+       
         </Routes>
-      </Layout>
+      
       </BrowserRouter>
     </ApolloProvider>
   )

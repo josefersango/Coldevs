@@ -1,11 +1,24 @@
-import {React,useEffect} from 'react';
-import {useQuery} from '@apollo/client'
+import {React,useEffect,useState} from 'react';
+import {useMutation, useQuery} from '@apollo/client'
 import { toast } from 'react-toastify';
 import { GET_USUARIOS_PENDIENTES } from '../../graphql/usuarios/queries';
 import { Link } from 'react-router-dom';
+import { EDITAR_USUARIO } from '../../graphql/usuarios/mutations';
 
 const UsuariosPendientes= ()=>{
     const {data,error,loading} = useQuery(GET_USUARIOS_PENDIENTES);
+    const [handleChange, setHandleChange] = useState();
+    const [editarUsuario,{data:mutationData,loading:mutationLoading,error:mutationError}]=useMutation(EDITAR_USUARIO);
+    
+    
+    const cambiarEstado=(e)=>{
+        e.preventDefault();
+        editarUsuario({
+            variables:{_id, ...formData},
+        })
+       // console.log("Fd",formData)
+    };
+
     useEffect(() => {
         console.log("datos servidor ",data);
     }, [data]);
@@ -14,7 +27,11 @@ const UsuariosPendientes= ()=>{
         if(error){
             toast.error("Error al consultar los usuarios")
         }
-    })
+    });
+    const handle=(event)=>{
+        console.log(event.target.value)
+        setHandleChange(event.target.value);
+    }
 
     if(loading) return <div>Cargando...</div>
     return (
@@ -40,7 +57,14 @@ const UsuariosPendientes= ()=>{
                             <td>{usuario.rol}</td>
                             <td>{usuario.estado}</td>
                             <td>
-                                
+                                <select  className="form-control" id="estado" defaultValue={usuario.estado} onChange={handle} name="estado">
+                                    <option value="AUTORIZADO">Autorizado</option>
+                                    <option  value="PENDIENTE">Pendiente</option>
+                                    <option value="NO_AUTORIZADO">No Autorizado</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button onClick={cambiarEstado}>Cambiar</button>
                             </td>
 
                         </tr>
