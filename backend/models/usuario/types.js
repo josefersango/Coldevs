@@ -31,6 +31,7 @@ const typeUsuario = gql`
   type Query {
     Usuarios: [Usuario]
     Usuario(_id:String!):Usuario
+    UsuariosPendientes:[Usuario]
     
   }
 
@@ -42,6 +43,7 @@ const typeUsuario = gql`
       correo: String!
       estado: Enum_EstadoUsuario
       rol: Enum_Rol!
+      password:String!
     ): Usuario
 
     
@@ -52,7 +54,6 @@ const typeUsuario = gql`
       identificacion: String
       correo: String
       estado:Enum_EstadoUsuario
-      rol:Enum_Rol
     ):Usuario
 
     eliminarUsuario(_id:String correo:String):Usuario

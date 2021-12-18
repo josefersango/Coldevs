@@ -5,6 +5,7 @@ import { typeUsuario } from "../models/usuario/types.js";
 import { typeProyectos } from "../models/proyecto/types.js";
 import { typeInscripcion } from "../models/inscripcion/types.js";
 import { typeAvance } from "../models/avance/types.js";
+import {typeAuth} from "./auth/type.js";
 
 
 const typeGlobales = gql`
@@ -17,6 +18,8 @@ export const tipos = [
   typeUsuario,
   typeProyectos,
   typeInscripcion,
-  typeAvance
+  typeAvance,
+  typeAuth
+
 ];
 
