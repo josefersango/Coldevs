@@ -1,7 +1,6 @@
 import {useRef,useState} from 'react';
 
 const UseFormData=(initial)=>{
-    console.log(initial)
     const form = useRef(initial);
     const [formData,setFormData] = useState({});
     

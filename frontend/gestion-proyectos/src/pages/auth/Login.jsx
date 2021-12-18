@@ -57,14 +57,11 @@ export const Login = () => {
                             <input type="submit" class="btn btn-primary btn-block ingresar" value="Ingresar"/>
                         </div>
                         <div>
-                           <Link to="auth/regisro">
+                           <Link to="/auth/registro">
                                <span >Registrarse</span>
                            </Link>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="recordarmeCheck1" name="recordarmenCheck1"/>
-                            <label class="form-check-label" for="recordarmenCheck1">Recordarme</label>
-                        </div>
+                        
                     </form>
                 </div>
              </div>

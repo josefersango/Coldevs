@@ -13,9 +13,7 @@ const UsuariosPendientes= ()=>{
     
     const cambiarEstado=(e)=>{
         e.preventDefault();
-        editarUsuario({
-            variables:{_id, ...formData},
-        })
+        
        // console.log("Fd",formData)
     };
 

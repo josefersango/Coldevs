@@ -57,9 +57,11 @@ const EditarProyecto = () => {
         setHandleChange(event.target.value);
     } */
     
-    console.log('que trae el query'+queryData);
+  
    
     if(queryLoading) return <div>Cargando....</div>;
+    console.log('que trae el query'+queryData.Proyecto);
+    console.log(Object.values(queryData))
     return (
         <div className="container col-7 mt-4">
             <legend>Detalle Proyecto</legend>
@@ -100,11 +102,25 @@ const EditarProyecto = () => {
                     <label for="objetivosGenerales" class="form-label">Objetivo General</label>
                     <input type="text" name="objetivosGenerales"className="form-control" id="objetivosGenerales" defaultValue={queryData.Proyecto.objetivosGenerales}/>
                 </div> 
-
+                
                 <div class="mb-3">
-                    <label for="objetivosespecificos" class="form-label">Objetivos especificos</label>
-                    <input type="text" name="objetivosEspecificos"className="form-control" id="objetivosEspecificos" defaultValue={queryData.Proyecto.objetivosEspecificos}/>
-                </div> 
+                <label for="objetivosespecificos" class="form-label">Objetivos especificos</label>
+                { queryData.Proyecto.objetivosEspecificos.map((obj)=>{
+                    
+                    
+                   
+                   return(
+                   <div>
+                        
+                        <input type="text" name="objetivosEspecificos"className="form-control" id="objetivosEspecificos" defaultValue={obj}/>
+                        <br/>
+                   </div>
+                   )
+
+                    
+                })}
+                   </div>
+                 
                 
                 
             </form>

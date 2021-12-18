@@ -5,12 +5,13 @@ import UseFormData from '../../hooks/UseFormData';
 import '../../styles/registro.css';
 import {useNavigate} from 'react-router';
 import { useAuth } from '../../context/AuthContext';
+import {toast} from 'react-toastify';
 
 export const Registro = () => {
     const {setToken} = useAuth();
     const navigate = useNavigate();
 
-    const {form,formData,updateFormData} = UseFormData(null); 
+    const {form,formData,updateFormData} = UseFormData(); 
     const [registrarUsuario,{data:mutationData,loading:mutationLoading,error:mutationError}]=useMutation(REGISTRO_USUARIO);
 
     
@@ -18,11 +19,16 @@ export const Registro = () => {
         e.preventDefault();
         registrarUsuario({variables: formData})
     }
+    
+    
+
     useEffect(() => {
-        console.log("data",mutationData);
         if(mutationData){
-            if(mutationData.login){
-                setToken(mutationData.login.token)
+            console.log(mutationData)
+            toast.success('Usuario Registrado!!');
+            if(mutationData.registroUsuario){
+                
+                setToken(mutationData.registroUsuario.token)
                 navigate('/')
             }
 

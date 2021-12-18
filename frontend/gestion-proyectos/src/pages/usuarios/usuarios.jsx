@@ -18,7 +18,7 @@ const IndexUsuario= ()=>{
 
     if(loading) return <div>Cargando...</div>
     return (
-        <div>
+        <div className="m-10 p-5">
             <table class="table table-striped">
             <thead>
                 <tr>
