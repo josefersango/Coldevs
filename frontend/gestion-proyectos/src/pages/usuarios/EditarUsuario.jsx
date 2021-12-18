@@ -6,15 +6,20 @@ import { GET_USUARIO } from '../../graphql/usuarios/queries';
 import UseFormData from '../../hooks/UseFormData';
 import {toast} from 'react-toastify';
 
+
+
 const EditarUsuario = () => {
 
     const {form,formData,updateFormData} = UseFormData(null);  
     const {_id}= useParams();
+   
     const [handleChange, setHandleChange] = useState();
     
     const {data:queryData,error:queryError,loading:queryLoading}= useQuery(GET_USUARIO,{
         variables:{_id}
     });
+   
+    console.log("variable prueba"+ {variables:{_id}});
 
     const [editarUsuario,{data:mutationData,loading:mutationLoading,error:mutationError}]=useMutation(EDITAR_USUARIO);
     
@@ -52,7 +57,7 @@ const EditarUsuario = () => {
         setHandleChange(event.target.value);
     }
     
-    console.log(queryData);
+    console.log('que trae el query'+queryData);
    
     if(queryLoading) return <div>Cargando....</div>;
     return (

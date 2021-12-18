@@ -13,6 +13,11 @@ import AuthLayout from './components/AuthLayout'
 import { Login } from './pages/auth/Login'
 import { AuthContex } from './context/AuthContext'
 import { UserContext } from './context/UserContext';
+import EditarProyecto from './pages/proyectos/EditarProyectos'
+import IndexProyecto from './pages/proyectos/ListarProyectos'
+import IndexInscripcion from './pages/inscripciones/ListarInscripciones'
+
+
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:5000/graphql',
@@ -52,6 +57,7 @@ function App() {
 
   return (
     <ApolloProvider client={cliente}>
+
       <AuthContex.Provider value={{authToken,setAuthToken,setToken}}>
         <UserContext.Provider value={{ userData, setUserData }}>
           <BrowserRouter>
@@ -62,6 +68,9 @@ function App() {
                   <Route  path="/usuarios" element={<IndexUsuario/>}/>
                   <Route  path="/usuarios/pendientes" element={<UsuariosPendientes/>}/>
                   <Route path="/usuarios/editar/:_id" element={<EditarUsuario/>}/>
+                  <Route exact path="/proyectos" element={<IndexProyecto/>}></Route>          
+                  <Route exact path="/proyectos/editar/:_id" element={<EditarProyecto/>}></Route>
+                  <Route exact path="/inscripcion" element={<IndexInscripcion/>}></Route>
               </Route>
             
             <Route path='/auth' element={<AuthLayout/>}>
@@ -75,6 +84,7 @@ function App() {
         </UserContext.Provider>
       </AuthContex.Provider>
       
+
     </ApolloProvider>
   )
 }

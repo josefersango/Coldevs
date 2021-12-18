@@ -9,27 +9,45 @@ const resolversProyecto = {
       .populate('avances')
       .populate('inscripciones');
       return proyectos;
+    },
+    Proyecto:async (parent,args)=>{
+      const proyecto= await ProyectoModel.findOne({_id:args._id})
+      return proyecto;
     }
   },
 
   Mutation: {
     
-    crearProyecto: async(parent,args)=>{
-      const proyectoModel= new ProyectoModel(args);
-      const proyecto = await proyectoModel.save();
-      return proyecto;
+    crearProyecto: async (parent, args, context) => {
+      const proyectoCreado = await ProyectoModel.create({
+        nombre: args.nombre,
+        fechaInicio: args.fechaInicio,
+        fechaFin: args.fechaFin,
+        presupuesto: args.presupuesto,
+        lider: args.lider,
+        objetivos: args.objetivos,
+      });
+      return proyectoCreado;
     },
-    editarProyecto:async(parent,args)=>{
+    editarProyecto: async(parent,args)=>{
+      const editarproyecto=await ProyectoModel.findByIdAndUpdate(args._id,
+        {
+          nombre:args.nombre,
+          estado:args.estado,
+          presupuesto:args.presupuesto,
+        }
+         
+   /*  editarProyecto:async(parent,args)=>{
       let proyectoModel= new ProyectoModel(args);
-      const proyecto = ProyectoModel.findByIdAndUpdate(args._id,
-        proyectoModel
+      const editarproyecto = ProyectoModel.findByIdAndUpdate(args._id,
+        proyectoModel */
       ,{new:true})
 
-      return proyecto;
+      return editarproyecto;
     },
     eliminarProyecto:async(parent,args)=>{
-      const proyecto = await ProyectoModel.findByIdAndDelete(args._id);
-      return proyecto;
+      const eliminarproyecto = await ProyectoModel.findByIdAndDelete(args._id);
+      return eliminarproyecto;
     }
   }
   
