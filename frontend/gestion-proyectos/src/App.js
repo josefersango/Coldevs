@@ -1,7 +1,8 @@
 import './App.css'
-import {
-  BrowserRouter as Router, Routes, Route, BrowserRouter,} from 'react-router-dom' 
-  import {ApolloProvider,ApolloClient,InMemoryCache,createHttpLink,} from '@apollo/client'
+import {useState} from 'react';
+import {BrowserRouter as Router, Routes, Route, BrowserRouter,} from 'react-router-dom';
+import {ApolloProvider,ApolloClient,InMemoryCache,createHttpLink} from '@apollo/client'
+import {setContext} from '@apollo/client/link/context'
 import Index from './pages'
 import IndexUsuario from './pages/usuarios/usuarios'
 import PrivateLayout from './components/PrivateLayout'
@@ -9,35 +10,71 @@ import EditarUsuario from './pages/usuarios/EditarUsuario'
 import UsuariosPendientes from './pages/usuarios/UsuariosPendientes'
 import { Registro } from './pages/auth/Registro'
 import AuthLayout from './components/AuthLayout'
+import { Login } from './pages/auth/Login'
+import { AuthContex } from './context/AuthContext'
+import { UserContext } from './context/UserContext';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:5000/graphql',
-})
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = JSON.parse(localStorage.getItem('token'));
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+
 
 const cliente = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
   cache: new InMemoryCache(),
+  link: authLink.concat(httpLink),
 })
 function App() {
+  const [authToken,setAuthToken]= useState('');
+  const [userData, setUserData] = useState({});
+
+  const setToken = (token) => {
+    setAuthToken(token);
+    if (token) {
+      localStorage.setItem('token', JSON.stringify(token));
+    } else {
+      localStorage.removeItem('token');
+    }
+  };
+  
+
   return (
     <ApolloProvider client={cliente}>
-      <BrowserRouter>
-      
-        <Routes>
-            <Route path="/" element={<PrivateLayout/>}>
-              <Route exact path="/" element={<Index />}/>
-              <Route exact path="/usuarios" element={<IndexUsuario/>}/>
-              <Route exact path="/usuarios/pendientes" element={<UsuariosPendientes/>}/>
-              <Route exact path="/usuarios/editar/:_id" element={<EditarUsuario/>}/>
-            </Route>
+      <AuthContex.Provider value={{authToken,setAuthToken,setToken}}>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <BrowserRouter>
           
-          <Route path='/auth' element={<AuthLayout/>}>
-              <Route exact path="/auth/registro" element={<Registro/>}/>
-          </Route>
-       
-        </Routes>
+          <Routes>
+              <Route path="/" element={<PrivateLayout/>}>
+                  <Route  path="/" element={<Index />}/>
+                  <Route  path="/usuarios" element={<IndexUsuario/>}/>
+                  <Route  path="/usuarios/pendientes" element={<UsuariosPendientes/>}/>
+                  <Route path="/usuarios/editar/:_id" element={<EditarUsuario/>}/>
+              </Route>
+            
+            <Route path='/auth' element={<AuthLayout/>}>
+                <Route  path="/auth/registro" element={<Registro/>}/>
+                <Route path='/auth/login' element={<Login/>} /> 
+            </Route>
+        
+          </Routes>
+        
+        </BrowserRouter>
+        </UserContext.Provider>
+      </AuthContex.Provider>
       
-      </BrowserRouter>
     </ApolloProvider>
   )
 }

@@ -30,6 +30,47 @@ const resolverAuth={
                 })
             }
         },
+        login:async (parent,args)=>{
+            console.log(args);
+            const usuarioEncontrado = await UsuarioModel.findOne({correo:args.correo});
+
+            if(await bcrypt.compare(args.password,usuarioEncontrado.password)){
+                return{
+                    token:generateToken({
+                        _id:usuarioEncontrado._id,
+                        nombre:usuarioEncontrado.nombre,
+                        apellidos:usuarioEncontrado.apellidos,
+                        identificacion:usuarioEncontrado.identificacion,
+                        correo:usuarioEncontrado.correo,
+                        rol:usuarioEncontrado.rol, 
+                    })
+                }
+            }
+            console.log(args,usuarioEncontrado,comparacion);
+        
+            return{
+                token: "Holis soy el token"
+            }
+        },
+        refreshToken:async(parent,args,context)=>{
+          console.log("contexto",context)
+          if(!context.userData){
+              return{
+                  error: 'Token no valido'
+              };
+          }else{
+              return{
+                  token:generateToken({
+                    _id:context.userData._id,
+                    nombre:context.userData.nombre,
+                    apellidos:context.userData.apellidos,
+                    identificacion:context.userData.identificacion,
+                    correo:context.userData.correo,
+                    rol:context.userData.rol, 
+                })
+              }
+          }
+        },
     }
-};
+}
 export {resolverAuth}

@@ -2,9 +2,14 @@ import { useMutation } from '@apollo/client';
 import {Reac,useEffect} from 'react'
 import { REGISTRO_USUARIO } from '../../graphql/auth/mutations';
 import UseFormData from '../../hooks/UseFormData';
-import '../../styles/registro.css'
+import '../../styles/registro.css';
+import {useNavigate} from 'react-router';
+import { useAuth } from '../../context/AuthContext';
 
 export const Registro = () => {
+    const {setToken} = useAuth();
+    const navigate = useNavigate();
+
     const {form,formData,updateFormData} = UseFormData(null); 
     const [registrarUsuario,{data:mutationData,loading:mutationLoading,error:mutationError}]=useMutation(REGISTRO_USUARIO);
 
@@ -14,8 +19,15 @@ export const Registro = () => {
         registrarUsuario({variables: formData})
     }
     useEffect(() => {
-        console.log("data",mutationData)
-    }, [mutationData])
+        console.log("data",mutationData);
+        if(mutationData){
+            if(mutationData.login){
+                setToken(mutationData.login.token)
+                navigate('/')
+            }
+
+        }
+    }, [mutationData]);
     return (
         <div className="container mt-5">
             <legend>Registro</legend>
